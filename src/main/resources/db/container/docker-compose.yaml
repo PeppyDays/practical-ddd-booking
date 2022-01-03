@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  database-local:
+    image: mysql:8
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: welcome
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./initialise_mysql.sql:/docker-entrypoint-initdb.d/initialise_mysql.sql
+  message-queue-local:
+    image: rabbitmq:3-management
+    environment:
+      RABBITMQ_DEFAULT_USER: root
+      RABBITMQ_DEFAULT_PASS: welcome
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+# docker compose -p practical-ddd up -d
